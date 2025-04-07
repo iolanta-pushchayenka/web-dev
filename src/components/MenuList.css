@@ -1,0 +1,269 @@
+.main{
+   /* width: 1440px;
+    background-color: #f4fdff;
+    height: 1336px; */
+    overflow: hidden;
+    background-color: #f4fdff;
+    padding-top: 70px;
+    overflow-x: hidden; 
+ 
+}
+
+.container{
+width: 670px;
+height: 159px;
+display: flex; 
+flex-direction: column; 
+text-align: center;
+}
+
+.container h1 {
+ color: #35B8BE;
+ text-align: center;
+ font-family: Inter; /* Шрифт Inter */
+font-weight: 400; /* Вес шрифта */
+font-size: 50px; /* Размер шрифта */
+line-height: 55px; /* Высота строки */
+ }
+
+ .container p {
+    color: #35B8BE;
+    text-align: center;
+    font-family: Inter; /* Шрифт Inter */
+   font-weight: 400px; /* Вес шрифта */
+   font-size: 16px; /* Размер шрифта */
+   line-height: 27px; /* Высота строки */
+   color: #546285;
+   margin-top: 26px;
+   margin-left: 95px;
+   margin-right: 109px;
+   margin-bottom: 10.45px;
+    }
+   
+.phone:hover {
+color: #35B8BE;
+}
+
+.container2 {
+width: 1200px;
+height: 52px;
+margin-top: 80px;
+margin-left: 20px;
+gap:30px;
+display: flex; /* Включаем flexbox */
+justify-content: center; /* Центрируем по горизонтали */
+align-items: center; 
+}
+
+ .btn1 {
+width: 147px;
+height: 52px;
+border-radius: 6px;
+background-color: transparent;
+border-color: #61728333;
+font-family: Inter;
+font-weight: 400px; 
+font-size: 16px;
+line-height: 20px;
+ }
+
+ .btn1:hover {
+    background-color: #35B8BE;
+    color: white;
+ }
+
+ .btn2 {
+    width: 147px;
+    height: 52px;
+    border-radius: 6px;
+    background-color: transparent;
+    border-color: #61728333;
+    font-family: Inter;
+font-weight: 400px; 
+font-size: 16px;
+line-height: 20px;
+ }
+
+ .btn2:hover {
+    background-color: #35B8BE;
+    color: white;
+ }
+
+ .btn3 {
+    width: 147px;
+    height: 52px;
+    border-radius: 6px;
+    background-color: transparent;
+    border-color: #61728333;
+    font-family: Inter;
+font-weight: 400px; 
+font-size: 16px;
+line-height: 20px;
+ }
+
+ .btn3:hover {
+    background-color: #35B8BE;
+    color: white;
+ }
+
+ .menu_list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 20px; /* space between cards */
+    margin-top: 20px;
+ }
+    
+   
+ .menu_list {
+    display: grid; /* Используем Grid */
+    grid-template-columns: repeat(2, 580px); /* Два столбца, карточки будут занимать равное пространство */
+      gap: 20px;
+      justify-content: center;
+      padding-top: 40px;
+     }
+        
+        .card {
+            display: flex;
+            flex-direction: row;
+            background-color: white;
+             height: 200px;
+            border-radius: 5px;
+            overflow: hidden; /* Прячем переполнение */
+            gap: 20px;
+            width: 580px;
+            border: 2px solid #8cdde1;
+        }
+       
+    
+
+
+    .container3{
+        display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 30px;
+  padding-right: 20px;
+  flex: 1;
+    }
+   
+    .img_burger {
+        width: 120px;
+        height: 120px;
+        margin-top: 40px;
+        margin-left: 26px;
+    }
+    
+    
+    .name_price{
+    display: flex;
+    flex-direction: row;
+}
+    
+.name {
+ width: 135px;
+height: 20px;
+font-family: Inter;
+font-weight: 400px;
+font-size: 18px; 
+line-height: 20px; 
+color: #08090A;
+margin-top: 25px;
+white-space: nowrap;
+}
+
+.price {
+    width: 86px;
+    height: 20px;
+    font-family: Inter;
+    font-weight: 400px;
+    font-size: 15px; 
+    line-height: 20px; 
+    color: #35B8BE;
+    margin-top: 26px;
+    margin-left: 127px;
+    white-space: nowrap;
+}
+
+.description{
+    margin-top: -10px;
+    width: 351px;
+    height: 48px;
+    font-family: Inter;
+   font-weight: 400px;
+   font-size: 16px; 
+   line-height: 24px; 
+   color: #546285;
+}
+
+.add_to_cart {
+background-color: #35B8BE;
+width: 147px;
+height: 45px;
+border-radius: 6px;
+border: none;
+color: white;
+font-family: Inter;
+font-weight: 400px;
+font-size: 17px; 
+line-height: 20px; 
+}
+
+
+.card_qty {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+}
+
+.cart_count {
+background-color:rgb(242, 245, 242);
+width: 60px;
+height: 45px;
+border-radius: 10px;
+border-color: #DDDDDD;
+color: black;
+}
+
+.btn4 {
+background-color: #35B8BE;
+width: 147px;
+height: 52px;
+border-radius: 6px;
+border: none;
+color: white;
+margin-left: 520px;
+font-family: Inter;
+font-weight: 400px;
+font-size: 17px; 
+line-height: 20px; 
+margin-top: 74px;
+margin-bottom: 100px;
+}
+
+.tooltip {
+    position: relative;
+    color: #35B8BE;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color:rgb(27, 114, 120);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  .tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
