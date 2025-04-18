@@ -32,6 +32,12 @@ background-color: #f4fdff;
     white-space: nowrap;
 }
 
+
+.footer-column a {
+color: #546285;
+text-decoration: none;
+}
+
 .footer-column div {
 height: 20px;
 font-family: Inter;

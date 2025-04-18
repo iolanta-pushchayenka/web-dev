@@ -1,14 +1,14 @@
 import React from "react";
-import './Header.css';
+import "../styles/Header.css";
 import logo from '../assets/IMAGE.jpg';
 
-function Header () {
-
-    return(
+class Header extends React.Component {
+render () {
+    return (
         <header className="header">
             <div className="container">
-         <div className="header-inner">
-         <img className="logo" src={logo} alt="logo"></img>
+         <div className="header-inner">      
+         <img className="logo" src={logo} alt="logo"/>
             <nav className="nav">
             <a href="#" className="nav_link">Home</a>
             <a href="#" className="nav_link">Menu</a>
@@ -17,12 +17,13 @@ function Header () {
             </nav>
             <button className="cart">
           🛒
-          <span className="cart-count">0</span>
+          <span className="cart-count">{this.props.addToCartCount}</span>
         </button>
         </div>
         </div>
         </header>
-    )
+   )
+}
 }
 
 export default Header;
