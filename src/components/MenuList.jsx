@@ -1,63 +1,69 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import "../styles/MenuList.css";
 
 
-class MenuList extends React.Component {
-   
-    
-    constructor(props) {
-        super(props);
-        this.state = {
-            items: [],
-        isLoading: true,
-        error: null,
-        ItemsCount: 6,
-        }
-    }
-   
+function MenuList (props) {
 
-    componentDidMount () {
+    const [items, setItems] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [itemsCount, setItemsCount] = useState(6);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+
+    useEffect( () => {
         fetch("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals")
         .then(response => response.json ())
-        .then((data) => this.setState ({items: data, isLoading: false})) 
-        .catch((error => this.setState ({error, isLoading: false})));
-    }
+        .then(data => {
+            setItems(data);
+            setIsLoading(false);
+         })
+        .catch(error => {
+            setError(error);
+            setIsLoading(false);
+        });
+    }, []);
 
-
-    handleSeeMoreClick = () => {
-        this.setState(prevState => ({
-        ItemsCount: prevState.ItemsCount + 6
-        }));
+    
+    const handleSeeMoreClick = () => {
+        setItemsCount(prevCount => prevCount + 6);
     };
     
-    
-    
 
-    render () {
-        const { items, isLoading, error } = this.state
+    const handleSelectedCategoryChange = (category) => {
+        setSelectedCategory(category);
+        setItemsCount(6);
+    };
+
+
+    const filteredItems = selectedCategory === null
+  ? items
+  : items.filter(item => item.category === selectedCategory);
+
+       // const { items, isLoading, error } = this.state
 
         if(isLoading) {
             return <p>Загрузка меню...</p>
         }
 
         if(error) {
-            return <p>Возникла ошибка</p>
+            return <p>Error: {error.message}</p>
         }
-    return(
+   
+   return(
 <main className="main">
     <div className="container">
         <h1>Browse our menu</h1>
         <p>Use our menu to place an order online, or <span className="tooltip" data-tooltip='+3706464620'>phone</span> our store to place a pickup order. Fast and fresh food.</p>
 </div>
     <div className="container2">
-        <button className="btn1">Dessert</button>
-        <button className="btn2">Dinner</button>
-        <button className="btn3">Breakfast</button>
+        <button className="btn1" onClick={() => handleSelectedCategoryChange("Dessert") }>Dessert</button>
+        <button className="btn2" onClick={() => handleSelectedCategoryChange("Dinner")}>Dinner</button>
+        <button className="btn3" onClick={() => handleSelectedCategoryChange("Breakfast")}>Breakfast</button>
 </div>
 
 <div className="menu_list">
     
-{items.slice(0, this.state.ItemsCount).map((item) => (
+{filteredItems.slice(0, itemsCount).map((item) => (
 <div className="card" key={item.id}>
         <img className="img_burger" src={item.img} alt={item.meal} />
         <div className="container3">
@@ -70,15 +76,15 @@ class MenuList extends React.Component {
         <button className="cart_count">
         <span className="quantity">1</span>
         </button>
-        <button className="add_to_cart" onClick={this.props.handleAddToCartClick}>Add to card</button>
+        <button className="add_to_cart" onClick={props.handleAddToCartClick}>Add to cart</button>
         </div>
         </div>
         </div>
 ))}
     </div>  
-    {this.state.ItemsCount < items.length && (
+    {filteredItems.length > itemsCount &&(
     <div className="container3">
-        <button className="btn4"   onClick={this.handleSeeMoreClick}>See more</button>
+        <button className="btn4" onClick={handleSeeMoreClick}>See more</button>
 </div>
 )}
     </main>
@@ -86,7 +92,7 @@ class MenuList extends React.Component {
 
     )
 }
-}
+
 
 
 export default MenuList;

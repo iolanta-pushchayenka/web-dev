@@ -38,6 +38,10 @@ color: #546285;
 text-decoration: none;
 }
 
+.footer-column a:hover {
+    color: #35B8BE;
+    }
+
 .footer-column div {
 height: 20px;
 font-family: Inter;
