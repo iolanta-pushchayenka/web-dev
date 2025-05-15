@@ -1,17 +1,8 @@
-import React from 'react';
+import React from "react";
+import MenuPage from './pages/MenuPage';
 
 function App() {
-  const items = ['Phone1', 'Phone2', 'Phone3'];
-
-  return (
-    <div>
-      <ul>
-        {items.map((phone) => (
-          <li>{phone}</li>
-        ))}
-      </ul>
-    </div>
-  );
+  return <MenuPage />;
 }
 
 export default App;
