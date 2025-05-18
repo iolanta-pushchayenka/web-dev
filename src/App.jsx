@@ -1,12 +1,8 @@
-import React from 'react';
+import React from "react";
+import MenuPage from './pages/MenuPage';
 
 function App() {
-
-  return (
-    <div>
-      Дзякуй мір
-    </div>
-  );
+  return <MenuPage />;
 }
 
 export default App;
