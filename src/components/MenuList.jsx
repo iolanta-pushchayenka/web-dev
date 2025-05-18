@@ -1,9 +1,25 @@
 import React, {useState, useEffect} from 'react';
 import "../styles/MenuList.css";
+import ProductCard from './ProductCard';
+import Button from './Button';
+import styled from 'styled-components';
+
+
+const ButtonContainer = styled.div`
+width: 1200px;
+height: 52px;
+margin-top: 80px;
+margin-left: 20px;
+gap:30px;
+display: flex; 
+justify-content: center; 
+align-items: center; 
+`;
+
 
 
 function MenuList (props) {
-
+    const { handleAddToCartClick, cart} = props;
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -39,14 +55,10 @@ function MenuList (props) {
   ? items
   : items.filter(item => item.category === selectedCategory);
 
-       // const { items, isLoading, error } = this.state
+  const categories = [...new Set(items.map(item => item.category))];
 
-        if(isLoading) {
-            return <p>Загрузка меню...</p>
-        }
-
-        if(error) {
-            return <p>Error: {error.message}</p>
+        if(isLoading) {return <p>Загрузка меню...</p>}
+        if(error) {return <p>Error: {error.message}</p>
         }
    
    return(
@@ -55,36 +67,33 @@ function MenuList (props) {
         <h1>Browse our menu</h1>
         <p>Use our menu to place an order online, or <span className="tooltip" data-tooltip='+3706464620'>phone</span> our store to place a pickup order. Fast and fresh food.</p>
 </div>
-    <div className="container2">
-        <button className="btn1" onClick={() => handleSelectedCategoryChange("Dessert") }>Dessert</button>
-        <button className="btn2" onClick={() => handleSelectedCategoryChange("Dinner")}>Dinner</button>
-        <button className="btn3" onClick={() => handleSelectedCategoryChange("Breakfast")}>Breakfast</button>
-</div>
+    <ButtonContainer>
+        {categories.map(category => (
+            <Button
+            key={category}
+            selected={selectedCategory === category}
+            onClick = {() => handleSelectedCategoryChange(category)}>
+                {category}
+            </Button>
+        ))}
+</ButtonContainer>
 
 <div className="menu_list">
     
 {filteredItems.slice(0, itemsCount).map((item) => (
-<div className="card" key={item.id}>
-        <img className="img_burger" src={item.img} alt={item.meal} />
-        <div className="container3">
-        <div className="name_price">
-        <h1 className="name">{item.meal}</h1>
-        <p className="price">${item.price.toFixed(2)}</p>
-        </div>
-        <p className="description">{item.instructions.slice(0, 80)}...</p>
-        <div className="card_qty">
-        <button className="cart_count">
-        <span className="quantity">1</span>
-        </button>
-        <button className="add_to_cart" onClick={props.handleAddToCartClick}>Add to cart</button>
-        </div>
-        </div>
-        </div>
+<ProductCard
+key={item.id}
+item ={item}
+cart={cart}
+handleAddToCartClick={handleAddToCartClick}
+></ProductCard>
 ))}
     </div>  
     {filteredItems.length > itemsCount &&(
-    <div className="container3">
-        <button className="btn4" onClick={handleSeeMoreClick}>See more</button>
+    <div className="see_more">
+          <Button onClick={handleSeeMoreClick}>
+  See more 
+</Button>
 </div>
 )}
     </main>

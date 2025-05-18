@@ -268,3 +268,11 @@ margin-bottom: 100px;
     opacity: 1;
     visibility: visible;
   }
+
+  
+.see_more {
+    display: flex;
+        justify-content: center;
+        margin-top: 74px;
+        margin-bottom: 100px;
+}

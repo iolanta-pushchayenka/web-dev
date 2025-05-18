@@ -4,26 +4,17 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HeroSection from '../components/HeroSection';
 import ImageSection from '../components/ImageSection';
-import useFetch from '../libs/useFetch';
 
 const Main = styled.div `
 overflow: hidden;
 overflow-x: hidden; 
+background-color: #f4fdff;
 `;
 
 
 function HomePage () {
 
-  const logFetch = useFetch(); 
-
-  useEffect(() => {
-    logFetch(
-      '/api/home',
-      { method: 'GET', body: null },
-      { status: 200 }
-    );
-  }, [logFetch]);
-
+  
 return (
     <Main>
     <Header />

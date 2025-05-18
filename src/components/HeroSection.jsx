@@ -1,20 +1,9 @@
 import React, {useState,useEffect} from 'react';
 import styled from 'styled-components';
+import Button from './Button';
 
-
-const Button = styled.button`
-  background-color: #35B8BE;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 20px 35px;
-  font-size: 16px;
-  margin-top: 53px;
-  
-  &:hover {
-    background-color: #35B8BE;
-    color: white;
-  }
+const SlyledButton = styled.div `
+margin-top: 50px;
 `;
 
 const Head = styled.h2`
@@ -104,7 +93,9 @@ function HeroSection () {
         <Container1>
           <Head>Beautiful food & takeaway,<span>delivered</span> to your door.</Head>
           <Paragraf>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.</Paragraf>
-        <Button disabled>Place an Order</Button>
+         <SlyledButton>
+          <Button >Place an Order</Button>
+          </SlyledButton>
         <Trust>
   <div className="trust-line">
     <span className="star">★</span> 

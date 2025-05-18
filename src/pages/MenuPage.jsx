@@ -6,16 +6,26 @@ import Footer from '../components/Footer';
 
 function MenuPage () {
   
-const [addToCartCount, setAddToCartCount] = useState(0);
+  const [cart, setCart] = useState({});
 
-const handleAddToCartClick = () => {
-  setAddToCartCount(prevCount => prevCount + 1);
-};
+  const handleAddToCartClick = (itemId) => {
+    setCart(prevCart => ({
+      ...prevCart,
+      [itemId]: (prevCart[itemId] || 0) + 1
+    }));
+  };
+
+  useEffect(() => {
+    console.log("Cart changed:", cart); 
+  }, [cart]);
+
+const totalCount = Object.values(cart).reduce((sum, count) => sum + count, 0);
+
 
   return (
       <div>
-        <Header addToCartCount={addToCartCount} />
-        <MenuList handleAddToCartClick={handleAddToCartClick}/>
+        <Header addToCartCount={totalCount} />
+        <MenuList handleAddToCartClick={handleAddToCartClick} cart={cart}/>
         <Footer />
       </div>
     );
