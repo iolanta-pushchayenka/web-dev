@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useState, useEffect} from 'react';
 import logo from '../assets/IMAGE.jpg';
 import social from '../assets/Frame.jpg';
 import "../styles/Footer.css";
 
-class Footer extends React.Component {
-  render () {
+function Footer () {
+  
   return(
         <div className="footer">
   <div className="footer-container">
@@ -16,10 +16,10 @@ class Footer extends React.Component {
     <div className="footer-column">
       <div>COMPANY</div>
       <ul>
-        <li>Home</li>
-        <li>Order</li>
-        <li>FAQ</li>
-        <li>Contact</li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Order</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact</a></li>
       </ul>
       </div>
 
@@ -38,7 +38,7 @@ class Footer extends React.Component {
       <div className="footer-column">
       <div>FLOWBASE</div>
       <ul>
-        <li>More Cloneables</li>
+        <li><a href="#">More Cloneables</a></li>
       </ul>
       </div>
 
@@ -56,6 +56,6 @@ class Footer extends React.Component {
 
     )
   }
-}
+
 
 export default Footer;

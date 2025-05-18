@@ -1,31 +1,24 @@
-import React  from "react";
+import React, {useState, useEffect} from 'react';
 import Header from '../components/Header';
 import MenuList from '../components/MenuList';
 import Footer from '../components/Footer';
 
 
-class MenuPage extends React.Component {
+function MenuPage () {
   
-  state = {
-    addToCartCount: 0,
-  };
-  
+const [addToCartCount, setAddToCartCount] = useState(0);
 
- handleAddToCartClick = () => {
-      this.setState(prevState => ({
-        addToCartCount: prevState.addToCartCount + 1}));
- };
-  
+const handleAddToCartClick = () => {
+  setAddToCartCount(prevCount => prevCount + 1);
+};
 
- 
-  render () {
   return (
       <div>
-        <Header addToCartCount={this.state.addToCartCount} />
-        <MenuList handleAddToCartClick={this.handleAddToCartClick}/>
+        <Header addToCartCount={addToCartCount} />
+        <MenuList handleAddToCartClick={handleAddToCartClick}/>
         <Footer />
       </div>
     );
   }
-}
+
   export default MenuPage;

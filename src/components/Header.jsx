@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useState, useEffect} from 'react';
 import "../styles/Header.css";
 import logo from '../assets/IMAGE.jpg';
 
-class Header extends React.Component {
-render () {
+function Header (props) {
+
     return (
         <header className="header">
             <div className="container">
@@ -17,13 +17,13 @@ render () {
             </nav>
             <button className="cart">
           🛒
-          <span className="cart-count">{this.props.addToCartCount}</span>
+          <span className="cart-count">{props.addToCartCount}</span>
         </button>
         </div>
         </div>
         </header>
    )
 }
-}
+
 
 export default Header;
