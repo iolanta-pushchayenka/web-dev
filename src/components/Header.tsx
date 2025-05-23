@@ -2,9 +2,15 @@ import React, {useState, useEffect} from 'react';
 import "../styles/Header.css";
 import logo from '../assets/IMAGE.jpg';
 
-function Header (props) {
 
-    return (
+type HeaderProps ={
+  addToCartCount?: number;
+};
+
+//function Header (props) {
+
+const Header: React.FC<HeaderProps> = ({ addToCartCount }) => {
+return (
         <header className="header">
             <div className="container">
          <div className="header-inner">      
@@ -15,10 +21,13 @@ function Header (props) {
             <a href="#" className="nav_link">Company</a>
             <a href="#" className="nav_link">Login</a>
             </nav>
-            <button className="cart">
+           
+            {addToCartCount !== undefined && (
+               <button className="cart">
           🛒
-          <span className="cart-count">{props.addToCartCount}</span>
+          <span className="cart-count">{addToCartCount}</span>
         </button>
+        )}
         </div>
         </div>
         </header>

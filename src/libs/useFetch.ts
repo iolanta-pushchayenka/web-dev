@@ -1,15 +1,36 @@
 import { useState, useCallback } from 'react';
 
+type FetchOptions = {
+  method?: string;
+  body?: any;
+};
+
+type FetchResponse = {
+  status?: number | string;
+  ok?: boolean;
+};
+
+type LogEntry = {
+  timestamp: string;
+  url: string;
+  method: string;
+  body: any;
+  status: number | string;
+};
+
+
+
 const useFetchLogger = () => {
-  // Состояние с логами, инициализируем из localStorage
-  const [logs, setLogs] = useState(() => {
+
+  const [logs, setLogs] = useState<LogEntry[]>(() => {
     const saved = localStorage.getItem('apiLogs');
     return saved ? JSON.parse(saved) : [];
   });
 
-  // Функция логирования fetch вызовов
-  const logFetch = useCallback((url, options = {}, response) => {
-    const log = {
+
+  const logFetch = useCallback(
+    (url: string, options: FetchOptions = {}, response: FetchResponse) => {
+    const log: LogEntry = {
       timestamp: new Date().toISOString(),
       url,
       method: options.method || 'GET',

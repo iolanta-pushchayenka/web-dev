@@ -6,9 +6,9 @@ import Footer from '../components/Footer';
 
 function MenuPage () {
   
-  const [cart, setCart] = useState({});
+  const [cart, setCart] = useState<Record<string, number>>({});
 
-  const handleAddToCartClick = (itemId) => {
+  const handleAddToCartClick = (itemId: string) => {
     setCart(prevCart => ({
       ...prevCart,
       [itemId]: (prevCart[itemId] || 0) + 1
