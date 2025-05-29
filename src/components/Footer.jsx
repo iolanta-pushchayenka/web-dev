@@ -1,43 +1,44 @@
-import React from "react";
-import './Footer.css';
+import React, {useState, useEffect} from 'react';
 import logo from '../assets/IMAGE.jpg';
 import social from '../assets/Frame.jpg';
+import "../styles/Footer.css";
 
-function Footer (){
-    return(
+function Footer () {
+  
+  return(
         <div className="footer">
-  <div class="footer-container">
-    <div class="footer-brand">
+  <div className="footer-container">
+    <div className="footer-brand">
     <img src={logo} alt="logo"></img>
     <p>Takeaway & Delivery template for small - medium businesses.</p>
     </div>
  <div class="footer-links">
-    <div class="footer-column">
+    <div className="footer-column">
       <div>COMPANY</div>
       <ul>
-        <li>Home</li>
-        <li>Order</li>
-        <li>FAQ</li>
-        <li>Contact</li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Order</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact</a></li>
       </ul>
       </div>
 
       
-      <div class="footer-column">
-      <div>TEMPLATE</div>
+      <div className="footer-column">
+      <div>TEMPLATE</div> 
       <ul>
-        <li>Style Guide</li>
-        <li>Changelog</li>
-        <li>Licence</li>
-        <li>Webflow University</li>
+        <li><a href="https://www.google.com/">Style Guide</a></li>
+        <li><a href="https://www.google.com/">Changelog</a></li>
+        <li><a href="https://www.google.com/">Licence</a></li>
+        <li><a href="https://www.google.com/">Webflow University</a></li>
       </ul>
       </div>
 
       
-      <div class="footer-column">
+      <div className="footer-column">
       <div>FLOWBASE</div>
       <ul>
-        <li>More Cloneables</li>
+        <li><a href="#">More Cloneables</a></li>
       </ul>
       </div>
 
@@ -45,8 +46,8 @@ function Footer (){
 
    
     <div class="footer-bottom">
-      <div class="a">Built by <span> Flowbase</span> · Powered by <span> Webflow</span></div>
-      <img src={social} alt="cocial_media"></img>
+      <div className="a">Built by <span> Flowbase</span> · Powered by <span> Webflow</span></div>
+      <img src={social} alt="social_media"></img>
       
     </div>
 
@@ -54,6 +55,7 @@ function Footer (){
 </div>
 
     )
-}
+  }
+
 
 export default Footer;

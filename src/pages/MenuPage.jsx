@@ -1,16 +1,34 @@
+import React, {useState, useEffect} from 'react';
 import Header from '../components/Header';
 import MenuList from '../components/MenuList';
 import Footer from '../components/Footer';
 
 
-function MenuPage() {
-    return (
+function MenuPage () {
+  
+  const [cart, setCart] = useState({});
+
+  const handleAddToCartClick = (itemId) => {
+    setCart(prevCart => ({
+      ...prevCart,
+      [itemId]: (prevCart[itemId] || 0) + 1
+    }));
+  };
+
+  useEffect(() => {
+    console.log("Cart changed:", cart); 
+  }, [cart]);
+
+const totalCount = Object.values(cart).reduce((sum, count) => sum + count, 0);
+
+
+  return (
       <div>
-        <Header />
-        <MenuList />
+        <Header addToCartCount={totalCount} />
+        <MenuList handleAddToCartClick={handleAddToCartClick} cart={cart}/>
         <Footer />
       </div>
     );
   }
-  
+
   export default MenuPage;
