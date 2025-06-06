@@ -4,23 +4,29 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import Orders from './Orders';
-
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from './store/store';
+import { setIsAuthenticated,  setIsRegistering } from './store/authSlice';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isRegistering, setIsRegistering] = useState(false);
+  
+  const isRegistering = useSelector((state: RootState) => state.auth.isRegistering);
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
+ const dispatch = useDispatch();
+ 
+  // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  //const [isRegistering, setIsRegistering] = useState<boolean>(false);
 
 
   useEffect(() => {
-    const storedStatus = localStorage.getItem('isLoggedIn') === 'true';
-    setIsLoggedIn(storedStatus);
-  }, []);
+    const isLogged = localStorage.getItem('isLoggedIn') === 'true';
+    dispatch(setIsAuthenticated(isLogged));
+  }, [dispatch]);
+  
 
 
   const handleLoginSuccess = () => {
-    setIsLoggedIn(true);
+    dispatch(setIsAuthenticated(true));
     localStorage.setItem('isLoggedIn', 'true');
   };
 
@@ -33,12 +39,12 @@ function App() {
   ) : isRegistering ?(
     <SignUpPage
     onLoginSuccess={handleLoginSuccess}
-    onSwitchToLogin={() => setIsRegistering(false)}
+    onSwitchToLogin={() => dispatch(setIsRegistering(false))}
   />
 ) : (
   <LoginPage
   onLoginSuccess={handleLoginSuccess}
-  onSwitchToRegister={() => setIsRegistering(true)}
+  onSwitchToRegister={() => dispatch(setIsRegistering(true))}
 />
 );
 }

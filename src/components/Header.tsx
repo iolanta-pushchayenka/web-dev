@@ -1,15 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import "../styles/Header.css";
 import logo from '../assets/IMAGE.jpg';
+import { RootState } from '../store/store';
+import { useSelector } from 'react-redux';
+import { fetchMenu, setSelectedCategory, seeMoreItems } from '../store/menuSlice';
+import type { AppDispatch } from '../store/store';  // путь к store.ts
 
+type HeaderProps = {
+   addToCartCount?: number;
+ };
 
-type HeaderProps ={
-  addToCartCount?: number;
-};
+const Header: React.FC<HeaderProps> = ({addToCartCount}) => {
+   
+   const cart = useSelector((state: RootState) => state.cart.cart);
 
-//function Header (props) {
+   //const addToCartCount = Object.values(cart).reduce((sum, count) => sum + count, 0);
 
-const Header: React.FC<HeaderProps> = ({ addToCartCount }) => {
 return (
         <header className="header">
             <div className="container">
@@ -22,7 +28,7 @@ return (
             <a href="#" className="nav_link">Login</a>
             </nav>
            
-            {addToCartCount !== undefined && (
+            {typeof addToCartCount === "number"  && (
                <button className="cart">
           🛒
           <span className="cart-count">{addToCartCount}</span>
