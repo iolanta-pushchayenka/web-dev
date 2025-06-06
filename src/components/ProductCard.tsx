@@ -1,8 +1,29 @@
 import React from 'react';
 import "../styles/MenuList.css";
 import Button from './Button';
+import { Product } from '../types/product';
+import { Cart } from '../types/cart';
+import { RootState } from '../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../store/cartSlice';
 
-function ProductCard({ item, cart, handleAddToCartClick }) {
+
+type ProductCardProps = {
+  item: Product;
+}
+
+//function ProductCard
+const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
+  
+  const dispatch = useDispatch();
+  const cart = useSelector((state: RootState) => state.cart.cart);
+  const itemCount = cart[item.id] || 0;
+  
+
+  const handleAddToCartClick = () => {
+    dispatch(addToCart(item.id));
+  };
+
   return (
     <div className="card">
       <img className="img_burger" src={item.img} alt={item.meal} />
@@ -16,8 +37,8 @@ function ProductCard({ item, cart, handleAddToCartClick }) {
           <button className="cart_count">
             <span className="quantity">{cart[item.id] || 0}</span>
           </button>
-          <Button onClick={() => handleAddToCartClick(item.id)}>
-  Add to cart
+          <Button onClick = {handleAddToCartClick}>
+  Add to cart 
 </Button>
         </div>
       </div>

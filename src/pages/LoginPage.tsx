@@ -3,9 +3,12 @@ import LoginForm from '../components/LoginForm';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import styled from 'styled-components';
+import { AuthCallbacks, SwitchCallbacks } from '../types/auth';
+
+type LoginPageProps = AuthCallbacks & SwitchCallbacks;
 
 
-function LoginPage ({onLoginSuccess, onSwitchToRegister }) {
+const LoginPage: React.FC<LoginPageProps> = ({onLoginSuccess, onSwitchToRegister }) => {
   return (
     <div>
         <Header />

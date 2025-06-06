@@ -1,7 +1,13 @@
 import React from "react";
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
+
+type StyledButtonProps = {
+selected?: boolean;
+cancel?: boolean;
+};
+
+const StyledButton = styled.button<StyledButtonProps>`
    width: 147px;
   height: 52px;
   border-radius: 8px;
@@ -22,9 +28,16 @@ const StyledButton = styled.button`
 `;
 
 
-function Button({ onClick, selected, children }) {
+//function Button
+
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  selected?: boolean;
+  cancel?: boolean;
+ };
+
+const Button: React.FC<ButtonProps> = ({ selected, children, ...rest}) => {
   return (
-    <StyledButton selected={selected} onClick={onClick} >
+    <StyledButton selected={selected} {...rest}>
       {children}
     </StyledButton>
   );

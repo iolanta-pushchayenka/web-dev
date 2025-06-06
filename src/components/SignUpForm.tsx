@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, TouchEvent, KeyboardEvent } from 'react';
 import styled from 'styled-components';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import Button from './Button';
+import { AuthCallbacks, SwitchCallbacks } from '../types/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { setEmail, setPassword, clearData } from '../store/authSlice';
 
 
 const TextSwitch = styled.p`
@@ -84,22 +88,33 @@ const Title = styled.h2`
   text-align: center;
 `;
 
-function SignUpForm({ onLoginSuccess, onSwitchToLogin  }) {
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
+//function SignUpForm
 
+type SignUpProps = AuthCallbacks & SwitchCallbacks;
+
+const SignUpForm: React.FC<SignUpProps> = ({ onLoginSuccess, onSwitchToLogin  }) => {
+ // const [userEmail, setUserEmail] = useState('');
+  //const [userPassword, setUserPassword] = useState('');
+
+
+  const dispatch = useDispatch();
+  const userEmail = useSelector((state: RootState) => state.auth.email);
+  const userPassword = useSelector((state: RootState) => state.auth.password);
   
-  const handleSignUp = async (e) => {
+
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement> | TouchEvent<HTMLFormElement> | KeyboardEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, userEmail, userPassword);
       alert("Регистрация прошла успешно!");
       localStorage.setItem('isLoggedIn', 'true');  
       onLoginSuccess();  
-    } catch (error) {
+    } catch (error: unknown) {
+      if (error instanceof Error)  {
       alert("Ошибка регистрации: " + error.message);
     }
   };
+};
 
   return (
     <Main>
@@ -113,7 +128,7 @@ function SignUpForm({ onLoginSuccess, onSwitchToLogin  }) {
                 type="email"
                 id="useremail"
                 value={userEmail}
-                onChange={(e) => setUserEmail(e.target.value)}
+                onChange={(e) => dispatch(setEmail(e.target.value))}
                 required
               />
             </FieldGroup>
@@ -123,7 +138,7 @@ function SignUpForm({ onLoginSuccess, onSwitchToLogin  }) {
                 type="password"
                 id="password"
                 value={userPassword}
-                onChange={(e) => setUserPassword(e.target.value)}
+                onChange={(e) => dispatch(setPassword(e.target.value))}
                 required
               />
             </FieldGroup>
@@ -132,10 +147,7 @@ function SignUpForm({ onLoginSuccess, onSwitchToLogin  }) {
               <Button
                 type="button"
                 cancel
-                onClick={() => {
-                  setUserEmail('');
-                  setUserPassword('');
-                }}
+                onClick={() => dispatch(clearData())}
               >
                 Cancel
               </Button>
@@ -143,9 +155,11 @@ function SignUpForm({ onLoginSuccess, onSwitchToLogin  }) {
           </form>
           
         </FormContainer>
-        <TextSwitch onClick={onSwitchToLogin}>
-          Already have an account? <span>Log in </span>
-            </TextSwitch>
+        <TextSwitch onClick={() => {
+  if (onSwitchToLogin) onSwitchToLogin();
+}}>
+  Already have an account? <span>Log in </span>
+</TextSwitch>
       </FormWrapper>
     </Main>
   );
