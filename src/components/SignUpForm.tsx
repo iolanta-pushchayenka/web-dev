@@ -4,6 +4,10 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import Button from './Button';
 import { AuthCallbacks, SwitchCallbacks } from '../types/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { setEmail, setPassword, clearData } from '../store/authSlice';
+
 
 const TextSwitch = styled.p`
   color: grey;
@@ -89,10 +93,15 @@ const Title = styled.h2`
 type SignUpProps = AuthCallbacks & SwitchCallbacks;
 
 const SignUpForm: React.FC<SignUpProps> = ({ onLoginSuccess, onSwitchToLogin  }) => {
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
+ // const [userEmail, setUserEmail] = useState('');
+  //const [userPassword, setUserPassword] = useState('');
 
+
+  const dispatch = useDispatch();
+  const userEmail = useSelector((state: RootState) => state.auth.email);
+  const userPassword = useSelector((state: RootState) => state.auth.password);
   
+
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement> | TouchEvent<HTMLFormElement> | KeyboardEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -119,7 +128,7 @@ const SignUpForm: React.FC<SignUpProps> = ({ onLoginSuccess, onSwitchToLogin  })
                 type="email"
                 id="useremail"
                 value={userEmail}
-                onChange={(e) => setUserEmail(e.target.value)}
+                onChange={(e) => dispatch(setEmail(e.target.value))}
                 required
               />
             </FieldGroup>
@@ -129,7 +138,7 @@ const SignUpForm: React.FC<SignUpProps> = ({ onLoginSuccess, onSwitchToLogin  })
                 type="password"
                 id="password"
                 value={userPassword}
-                onChange={(e) => setUserPassword(e.target.value)}
+                onChange={(e) => dispatch(setPassword(e.target.value))}
                 required
               />
             </FieldGroup>
@@ -138,10 +147,7 @@ const SignUpForm: React.FC<SignUpProps> = ({ onLoginSuccess, onSwitchToLogin  })
               <Button
                 type="button"
                 cancel
-                onClick={() => {
-                  setUserEmail('');
-                  setUserPassword('');
-                }}
+                onClick={() => dispatch(clearData())}
               >
                 Cancel
               </Button>

@@ -5,6 +5,11 @@ import Button from './Button';
 import styled from 'styled-components';
 import { Product } from '../types/product';
 import { Cart } from '../types/cart';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { setSelectedCategory, seeMoreItems } from '../store/menuSlice';
+import { fetchMenu } from '../store/menuSlice';
+import type { AppDispatch } from '../store/store';  // путь к store.ts
 
 
 const ButtonContainer = styled.div`
@@ -26,35 +31,38 @@ cart: Cart;
 }
 
 //function MenuList 
-const MenuList: React.FC<MenuListProps> = ({handleAddToCartClick, cart}) => {
-    const [items, setItems] = useState<Product[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
-    const [itemsCount, setItemsCount] = useState(6);
-    const [selectedCategory, setSelectedCategory] =useState<string | null>(null);
+const MenuList: React.FC = () => {
+   // const [items, setItems] = useState<Product[]>([]);
+    //const [isLoading, setIsLoading] = useState(true);
+    //const [error, setError] = useState<Error | null>(null);
+    //const [itemsCount, setItemsCount] = useState(6);
+    //const [selectedCategory, setSelectedCategory] =useState<string | null>(null);
 
-    useEffect( () => {
-        fetch("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals")
-        .then(response => response.json ())
-        .then(data => {
-            setItems(data);
-            setIsLoading(false);
-         })
-        .catch(error => {
-            setError(error);
-            setIsLoading(false);
-        });
-    }, []);
+
+const dispatch = useDispatch<AppDispatch>();
+
+    const {
+        items,
+        isLoading,
+        error,
+        selectedCategory,
+        itemsCount,
+      } = useSelector((state: RootState) => state.menu);
+    
+      const cart = useSelector((state: RootState) => state.cart.cart);
+
+    useEffect(() => {
+     dispatch(fetchMenu());
+         }, [dispatch]);
 
     
     const handleSeeMoreClick = () => {
-        setItemsCount(prevCount => prevCount + 6);
+        dispatch(seeMoreItems());
     };
     
 
     const handleSelectedCategoryChange = (category: string) => {
-        setSelectedCategory(category);
-        setItemsCount(6);
+        dispatch(setSelectedCategory(category));
     };
 
 
@@ -65,7 +73,7 @@ const MenuList: React.FC<MenuListProps> = ({handleAddToCartClick, cart}) => {
   const categories = [...new Set(items.map(item => item.category))];
 
         if(isLoading) {return <p>Загрузка меню...</p>}
-        if(error) {return <p>Error: {error.message}</p>
+        if(error) {return <p>Error: {error}</p>
         }
    
    return(
@@ -88,14 +96,13 @@ const MenuList: React.FC<MenuListProps> = ({handleAddToCartClick, cart}) => {
 <div className="menu_list">
     
 {filteredItems.slice(0, itemsCount).map((item) => (
-<ProductCard
-key={item.id}
-item ={item}
-cart={cart}
-handleAddToCartClick={handleAddToCartClick}
-></ProductCard>
+    <ProductCard
+    key={item.id}
+    item={item}
+  />
 ))}
-    </div>  
+</div>  
+
     {filteredItems.length > itemsCount &&(
     <div className="see_more">
           <Button onClick={handleSeeMoreClick}>
