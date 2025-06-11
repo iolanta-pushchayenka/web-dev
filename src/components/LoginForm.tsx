@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase"; 
 import Button from './Button';
+import { AuthCallbacks, SwitchCallbacks } from '../types/auth';
+
 
 const TextSwitch = styled.p`
   color: grey;
@@ -17,20 +19,6 @@ const TextSwitch = styled.p`
   }
 `;
 
-const StyledParagraph = styled.p `
-color: grey;
-margin-top: 30px;
-text-align: center;
-font-size: 16px;
- cursor: pointer;
-
-span {
-    color: #35B8BE;
-    text-decoration: underline;
-  }
-    
-
-`;
 
 
 const ButtonGroup = styled.div`
@@ -98,21 +86,29 @@ const Title = styled.h2`
   text-align: center;
 `;
 
-function LoginForm({ onLoginSuccess, onSwitchToRegister  }) {
+type LoginFormProps = AuthCallbacks & SwitchCallbacks;
+
+
+
+
+//function LoginForm
+const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess, onSwitchToRegister }) => {
 
   const[userEmail, setUserEmail] = useState('');
   const[userPassword, setUserPassword] = useState('');
 
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, userEmail, userPassword);
       localStorage.setItem('isLoggedIn', 'true');
       onLoginSuccess();
-    } catch (error) {
+    } catch (error: unknown) {
+      if (error instanceof Error)  {
       alert("Ошибка входа: " + error.message);
     }
+  }
   };
 
   
@@ -147,9 +143,13 @@ function LoginForm({ onLoginSuccess, onSwitchToRegister  }) {
             </form>
             
         </FormContainer>
-        <TextSwitch onClick={onSwitchToRegister}>
-              Don't have an account? <span>Sign Up</span>
-            </TextSwitch>
+        <TextSwitch onClick={() => {
+  if (onSwitchToRegister) {
+    onSwitchToRegister();
+  }
+}}>
+  Don't have an account? <span>Sign Up</span>
+</TextSwitch>
         </FormWrapper>
         </Main>
        

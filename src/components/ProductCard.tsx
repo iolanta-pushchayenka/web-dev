@@ -1,8 +1,27 @@
 import React from 'react';
 import "../styles/MenuList.css";
 import Button from './Button';
+import { Product } from '../types/product';
+import { Cart } from '../types/cart';
 
-function ProductCard({ item, cart, handleAddToCartClick }) {
+
+/*type Product = {
+  id: string;
+  img: string;
+  meal: string;
+  price: number;
+  instructions: string;
+  category: string;
+}; */
+
+type ProductCardProps = {
+  item: Product;
+  cart: Cart;
+  handleAddToCartClick: (id: string) => void;
+}
+
+//function ProductCard
+const ProductCard: React.FC<ProductCardProps> = ({ item, cart, handleAddToCartClick }) => {
   return (
     <div className="card">
       <img className="img_burger" src={item.img} alt={item.meal} />

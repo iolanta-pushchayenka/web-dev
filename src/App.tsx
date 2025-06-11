@@ -6,19 +6,24 @@ import SignUpPage from './pages/SignUpPage';
 import Orders from './Orders';
 
 
+
+
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
+
 
   useEffect(() => {
     const storedStatus = localStorage.getItem('isLoggedIn') === 'true';
     setIsLoggedIn(storedStatus);
   }, []);
 
+
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
     localStorage.setItem('isLoggedIn', 'true');
   };
+
 
   return isLoggedIn ? (
    <div>
@@ -38,4 +43,13 @@ function App() {
 );
 }
 
+
 export default App;
+
+
+
+
+
+
+
+

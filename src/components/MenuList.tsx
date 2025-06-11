@@ -3,6 +3,8 @@ import "../styles/MenuList.css";
 import ProductCard from './ProductCard';
 import Button from './Button';
 import styled from 'styled-components';
+import { Product } from '../types/product';
+import { Cart } from '../types/cart';
 
 
 const ButtonContainer = styled.div`
@@ -18,13 +20,18 @@ align-items: center;
 
 
 
-function MenuList (props) {
-    const { handleAddToCartClick, cart} = props;
-    const [items, setItems] = useState([]);
+type MenuListProps = {
+handleAddToCartClick: (id: string) => void;
+cart: Cart;
+}
+
+//function MenuList 
+const MenuList: React.FC<MenuListProps> = ({handleAddToCartClick, cart}) => {
+    const [items, setItems] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<Error | null>(null);
     const [itemsCount, setItemsCount] = useState(6);
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] =useState<string | null>(null);
 
     useEffect( () => {
         fetch("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals")
@@ -45,7 +52,7 @@ function MenuList (props) {
     };
     
 
-    const handleSelectedCategoryChange = (category) => {
+    const handleSelectedCategoryChange = (category: string) => {
         setSelectedCategory(category);
         setItemsCount(6);
     };
@@ -101,7 +108,6 @@ handleAddToCartClick={handleAddToCartClick}
 
     )
 }
-
 
 
 export default MenuList;

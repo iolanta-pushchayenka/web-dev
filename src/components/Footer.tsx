@@ -12,7 +12,7 @@ function Footer () {
     <img src={logo} alt="logo"></img>
     <p>Takeaway & Delivery template for small - medium businesses.</p>
     </div>
- <div class="footer-links">
+ <div className="footer-links">
     <div className="footer-column">
       <div>COMPANY</div>
       <ul>
@@ -45,7 +45,7 @@ function Footer () {
     </div>
 
    
-    <div class="footer-bottom">
+    <div className="footer-bottom">
       <div className="a">Built by <span> Flowbase</span> · Powered by <span> Webflow</span></div>
       <img src={social} alt="social_media"></img>
       
