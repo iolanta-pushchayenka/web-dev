@@ -8,12 +8,9 @@ import { addToCart } from '../store/cartSlice';
 
 
 function MenuPage () {
-  
- // const [cart, setCart] = useState<Record<string, number>>({});
 
  const dispatch = useDispatch<AppDispatch>();
   
-  // Получаем корзину из Redux
   const cart = useSelector((state: RootState) => state.cart.cart);
 
   const handleAddToCartClick = (itemId: string) => {

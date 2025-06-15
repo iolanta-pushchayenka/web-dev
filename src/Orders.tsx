@@ -10,7 +10,6 @@ const Orders = () => {
     try {
       const response = await fetch(ordersAPI);
 
-      // Логируем результат (успех или ошибка ответа)
       logFetch(ordersAPI, { method: 'GET' }, {
         status: response.status,
         ok: response.ok

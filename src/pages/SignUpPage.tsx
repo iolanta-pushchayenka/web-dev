@@ -14,7 +14,6 @@ const SignUpPage: React.FC<SignUpPageProps> = ({onLoginSuccess, onSwitchToLogin 
         <Header />
         <SignUpForm
         onLoginSuccess={onLoginSuccess}
-        onSwitchToLogin={onSwitchToLogin}
         />
         <Footer />
         </div>
