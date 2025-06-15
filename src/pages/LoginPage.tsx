@@ -14,7 +14,6 @@ const LoginPage: React.FC<LoginPageProps> = ({onLoginSuccess, onSwitchToRegister
         <Header />
         <LoginForm 
         onLoginSuccess={onLoginSuccess}
-        onSwitchToRegister={onSwitchToRegister}
         />
         <Footer />
         </div>

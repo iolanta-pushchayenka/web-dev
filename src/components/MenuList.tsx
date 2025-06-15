@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { setSelectedCategory, seeMoreItems } from '../store/menuSlice';
 import { fetchMenu } from '../store/menuSlice';
-import type { AppDispatch } from '../store/store';  // путь к store.ts
+import type { AppDispatch } from '../store/store';  
 
 
 const ButtonContainer = styled.div`
@@ -23,22 +23,13 @@ justify-content: center;
 align-items: center; 
 `;
 
-
-
 type MenuListProps = {
-handleAddToCartClick: (id: string) => void;
-cart: Cart;
-}
+    handleAddToCartClick: (id: string) => void;
+    cart: Record<string, number>;
+  };
 
-//function MenuList 
-const MenuList: React.FC = () => {
-   // const [items, setItems] = useState<Product[]>([]);
-    //const [isLoading, setIsLoading] = useState(true);
-    //const [error, setError] = useState<Error | null>(null);
-    //const [itemsCount, setItemsCount] = useState(6);
-    //const [selectedCategory, setSelectedCategory] =useState<string | null>(null);
-
-
+const MenuList: React.FC<MenuListProps>  = ({handleAddToCartClick, cart}) => {
+  
 const dispatch = useDispatch<AppDispatch>();
 
     const {
@@ -48,8 +39,6 @@ const dispatch = useDispatch<AppDispatch>();
         selectedCategory,
         itemsCount,
       } = useSelector((state: RootState) => state.menu);
-    
-      const cart = useSelector((state: RootState) => state.cart.cart);
 
     useEffect(() => {
      dispatch(fetchMenu());
@@ -111,10 +100,7 @@ const dispatch = useDispatch<AppDispatch>();
 </div>
 )}
     </main>
-
-
-    )
+)
 }
-
 
 export default MenuList;

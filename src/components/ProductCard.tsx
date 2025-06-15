@@ -12,7 +12,6 @@ type ProductCardProps = {
   item: Product;
 }
 
-//function ProductCard
 const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
   
   const dispatch = useDispatch();
