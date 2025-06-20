@@ -11,16 +11,19 @@ import { addToCart } from '../store/cartSlice';
 const Main = styled.div `
 overflow: hidden;
 overflow-x: hidden; 
-background-color: #f4fdff;
+background-color: var(--bg-color);
+  color: var(--text-color);
 `;
 
 
 function HomePage () {
 
-  
+const cart = useSelector((state: RootState) => state.cart.cart);
+const totalCount = Object.values(cart).reduce((sum, count) => sum + count, 0);
+
 return (
     <Main>
-    <Header />
+    <Header addToCartCount={totalCount}/>
     <HeroSection />
     <ImageSection />
     <Footer />

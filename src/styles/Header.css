@@ -1,6 +1,6 @@
 .header {
   overflow: hidden;
-  background-color: #ffffff;
+   background-color: var(--header-bg);
     z-index: 1000;
   box-sizing: border-box;
   }
@@ -32,12 +32,12 @@ display: flex;
 flex-direction: row;
 gap: 40px;
 padding-top: 40px;
-margin-left: 670px;
+margin-left: 600px;
 }
 
 .nav a {
     text-decoration: none;
-    color: #28224B;
+    color: var(--text-color);
     font-family: Inter, sans-serif;
     font-weight: 500;
     font-size: 16px;
@@ -46,7 +46,7 @@ margin-left: 670px;
   
 
 .nav a:hover {
-color: #35B8BE;
+   color: var(--accent-color);
 }
 
 
@@ -61,17 +61,16 @@ padding: 10px ;
 border-radius: 6px;
 align-items: center;
 justify-content: center;
-
 margin-top:  23px;
-margin-left: 102px; 
+margin-left: 40px; 
 margin-bottom: 22px;
-background-color: rgb(56, 185, 192);
+background-color: #35b8be;
 border: none;
-border-radius: 4px;
+border-radius: 7px;
 }
 
 .cart-count {
     margin-top: 2px;
-    color: #fff;
+    color: #ffffff;
 }
 

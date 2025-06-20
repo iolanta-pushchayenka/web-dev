@@ -11,12 +11,12 @@ import { removeFromCart } from "../store/cartSlice";
 const RemoveButton = styled.button`
   background: transparent;
   border: none;
-  color: grey;
+  color: var(--cart-bg);
   font-size: 20px;
   cursor: pointer;
 
   &:hover {
-    color: black;
+     color: var(--text-color);
   }
 `;
 
@@ -26,6 +26,7 @@ const Container = styled.div`
   background-color: #f9f9f9;
   min-height: 100vh;
   position: relative;
+   background-color: var(--bg-color);
 `;
 
 
@@ -57,6 +58,8 @@ const OrderItem = styled.div`
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+   background: var(--cart-bg);
+  color: var(--text-color);
 `;
 
 const Image = styled.img`
@@ -74,6 +77,7 @@ const Info = styled.div`
 const Name = styled.span`
   font-weight: 600;
 margin-left: 20px;
+ color: var(--text-color);
 `;
 
 const Controls = styled.div`
@@ -85,6 +89,7 @@ const Controls = styled.div`
 const Price = styled.span`
   font-weight: bold;
   color: #2c3e50;
+   color: var(--text-color);
 `;
 
 const Quantity = styled.input`
@@ -93,12 +98,14 @@ const Quantity = styled.input`
   text-align: center;
   border-radius: 6px;
   border: 1px solid #ccc;
+  background-color: var(--cart-bg);
+  color: var(--text-color);
 `;
 
 const Form = styled.div`
- 
+  background-color: var(--cart-bg);
+    color: var(--text-color);
 margin-top: 40px;
-  background: #fff;
   padding: 24px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -115,7 +122,7 @@ display: flex;
 label {
     font-weight: 600;
     margin-bottom: 6px;
-    color: #555;
+      color: var(--text-color);
     margin-bottom: 20px;
   }
 
@@ -129,6 +136,15 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 10px;
   font-size: 16px;
+  background-color: var(--cart-bg);
+  color: var(--text-color);
+`;
+
+const TotalPrice = styled.h3`
+  text-align: right;
+  margin-right: 55px;
+  margin-top: 20px;
+  color: var(--text-color);
 `;
 
 import BaseButton from './Button';
@@ -149,9 +165,19 @@ const OrderPage: React.FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cart);
   const meals = useSelector((state: RootState) => state.menu.items);
 
+
+const totalPrice = Object.entries(cartItems).reduce((sum, [id, quantity]) => {
+    const meal = meals.find((item: Product) => item.id === id);
+    if (!meal) return sum;
+    return sum + meal.price * quantity;
+  }, 0);
+
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert("Order submitted!");
+
+    
   };
 
   return (
@@ -164,6 +190,7 @@ const OrderPage: React.FC = () => {
             const meal = meals.find((item: Product) => item.id === id);
             if (!meal) return null;
 
+
             return (
               <OrderItem key={id}>
                 <Image src={meal.img} alt={meal.meal} />
@@ -171,14 +198,17 @@ const OrderPage: React.FC = () => {
                   <Name>{meal.meal}</Name>
                 </Info>
                 <Controls>
-                  <Price>${meal.price.toFixed(2)}</Price>
+                 <Price>${(meal.price * quantity).toFixed(2)}</Price>
                   <Quantity type="text" value={quantity}/>
                   <RemoveButton onClick={() => dispatch(removeFromCart(id))}>X</RemoveButton>
                 </Controls>
               </OrderItem>
             );
           })}
+        
         </OrderList>
+
+ <TotalPrice>Total: ${totalPrice.toFixed(2)}</TotalPrice> 
 
         <form onSubmit={handleSubmit}>
           <Form>

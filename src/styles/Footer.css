@@ -1,6 +1,7 @@
 .footer {
 overflow: hidden;
-background-color: #f4fdff;
+ background-color: var(--footer-bg);
+  color: var(--muted-text-color);
 }
 
 .footer-links {
@@ -49,6 +50,7 @@ font-weight: 800;
 font-size: 13px;
 line-height: 20px;
 margin-left: 40px;
+color: var(--text-color);
 }
 
 
