@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import logo from '../assets/IMAGE.jpg';
-import social from '../assets/Frame.jpg';
+import logo from '../assets/Logo (1).png';
+import social from '../assets/Frame (5).png';
 import "../styles/Footer.css";
 
 function Footer () {

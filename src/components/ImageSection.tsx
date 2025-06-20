@@ -9,7 +9,7 @@ height: auto;
 
 const Container1 = styled.div`
 margin-left: 640px;
-margin-top: -770px;
+margin-top: -700px;
 margin-bottom: 180px;
 `;
 
