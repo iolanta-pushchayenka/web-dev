@@ -6,11 +6,12 @@ import Button from './Button';
 import { AuthCallbacks, SwitchCallbacks } from '../types/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { setEmail, setPassword, clearData } from '../store/authSlice';
+import { setEmail, setPassword, clearData, setIsAuthenticated } from '../store/authSlice';
+import { Link } from 'react-router-dom';
 
-
-const TextSwitch = styled.p`
-  color: grey;
+const TextSwitch = styled(Link)`
+display: block;
+color: grey;
   text-align: center;
   font-size: 16px;
   margin-top: 20px;
@@ -31,7 +32,7 @@ const ButtonGroup = styled.div`
 
 const Main = styled.div`
   overflow: hidden;
-  background-color: #f4fdff;
+    background-color: var(--bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,7 +45,6 @@ max-width: 700px;
 `;
 
 const FormContainer = styled.div`
-  
   margin-top: 53px;
   box-shadow: 0 4px 12px rgba(53, 184, 190, 0.3);
   border: 2px solid #35B8BE;
@@ -63,7 +63,7 @@ const FieldGroup = styled.div`
 
 const Label = styled.label`
   width: 100px;
-  color: #08090A;
+  color: var(--text-color);
   margin-right: 10px;
   font-family: Inter, sans-serif;
   font-weight: 400px;
@@ -78,6 +78,8 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 10px;
   font-size: 16px;
+    background-color: var(--cart-bg);
+      color: var(--text-color);
 `;
 
 const Title = styled.h2`
@@ -88,14 +90,10 @@ const Title = styled.h2`
   text-align: center;
 `;
 
-//function SignUpForm
 
-type SignUpProps = AuthCallbacks & SwitchCallbacks;
+type SignUpProps = AuthCallbacks ;
 
-const SignUpForm: React.FC<SignUpProps> = ({ onLoginSuccess, onSwitchToLogin  }) => {
- // const [userEmail, setUserEmail] = useState('');
-  //const [userPassword, setUserPassword] = useState('');
-
+const SignUpForm: React.FC<SignUpProps> = ({ onLoginSuccess }) => {
 
   const dispatch = useDispatch();
   const userEmail = useSelector((state: RootState) => state.auth.email);
@@ -108,6 +106,8 @@ const SignUpForm: React.FC<SignUpProps> = ({ onLoginSuccess, onSwitchToLogin  })
       await createUserWithEmailAndPassword(auth, userEmail, userPassword);
       alert("Регистрация прошла успешно!");
       localStorage.setItem('isLoggedIn', 'true');  
+      dispatch(setIsAuthenticated(true));
+
       onLoginSuccess();  
     } catch (error: unknown) {
       if (error instanceof Error)  {
@@ -155,11 +155,11 @@ const SignUpForm: React.FC<SignUpProps> = ({ onLoginSuccess, onSwitchToLogin  })
           </form>
           
         </FormContainer>
-        <TextSwitch onClick={() => {
-  if (onSwitchToLogin) onSwitchToLogin();
-}}>
-  Already have an account? <span>Log in </span>
-</TextSwitch>
+        
+          <TextSwitch to="/login">
+              Already have an account? <span>Log in</span>
+              </TextSwitch>
+
       </FormWrapper>
     </Main>
   );

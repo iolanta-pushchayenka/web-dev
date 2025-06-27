@@ -8,10 +8,12 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { setEmail, setPassword, clearData, setIsAuthenticated  } from '../store/authSlice';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-
-const TextSwitch = styled.p`
-  color: grey;
+const TextSwitch = styled(Link)`
+  display: block;
+color: grey;
   text-align: center;
   font-size: 16px;
   margin-top: 20px;
@@ -34,10 +36,11 @@ const ButtonGroup = styled.div`
 
 const Main = styled.div`
   overflow: hidden;
-  background-color: #f4fdff;
+  background-color: var(--bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
+
 `;
 
 const FormWrapper = styled.div`
@@ -65,7 +68,7 @@ const FieldGroup = styled.div`
 
 const Label = styled.label`
   width: 100px;
-  color: #08090A;
+  color: var(--text-color);
   margin-right: 10px;
   font-family: Inter, sans-serif;
   font-weight: 400px;
@@ -80,6 +83,8 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 10px;
   font-size: 16px;
+   background-color: var(--cart-bg);
+      color: var(--text-color);
 `;
 
 const Title = styled.h2`
@@ -90,10 +95,12 @@ const Title = styled.h2`
   text-align: center;
 `;
 
-type LoginFormProps = AuthCallbacks & SwitchCallbacks;
 
-const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess, onSwitchToRegister }) => {
+type LoginFormProps = AuthCallbacks;
 
+const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
+
+  const navigate = useNavigate(); 
   const dispatch = useDispatch();
   const userEmail = useSelector((state: RootState) => state.auth.email);
   const userPassword = useSelector((state: RootState) => state.auth.password);
@@ -107,6 +114,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess, onSwitchToRegiste
       dispatch(setIsAuthenticated(true)); 
 
       onLoginSuccess();
+      navigate('/menu');
     } catch (error: unknown) {
       if (error instanceof Error)  {
       alert("Ошибка входа: " + error.message);
@@ -145,13 +153,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess, onSwitchToRegiste
             </form>
             
         </FormContainer>
-        <TextSwitch onClick={() => {
-  if (onSwitchToRegister) {
-    onSwitchToRegister();
-  }
-}}>
-  Don't have an account? <span>Sign Up</span>
-</TextSwitch>
+       
+         <TextSwitch to="/signup">
+          Don't have an account? <span>Sign Up</span>
+        </TextSwitch>
+
         </FormWrapper>
         </Main>
        

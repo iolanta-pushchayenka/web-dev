@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import styled from 'styled-components';
 import Button from './Button';
+import { useNavigate } from 'react-router-dom';
 
 const SlyledButton = styled.div `
 margin-top: 50px;
@@ -61,8 +62,9 @@ line-height: 20px;
   }
 
    .trust-name {
-    color: #000000; 
+    color: var(--text-color);
     font-size: 25px;
+
   }
 
   .review-note {
@@ -70,7 +72,7 @@ line-height: 20px;
 font-weight: 400;
 font-size: 18px;
 line-height: 20px;
-color: #08090A;
+color: var(--text-color);
   }
 
 .trust-line {
@@ -89,12 +91,14 @@ color: #08090A;
 
 
 function HeroSection () {
+  const navigate = useNavigate();
+  
     return (
         <Container1>
           <Head>Beautiful food & takeaway,<span>delivered</span> to your door.</Head>
           <Paragraf>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.</Paragraf>
          <SlyledButton>
-          <Button >Place an Order</Button>
+          <Button type="button" onClick ={() => navigate('/menu')} >Place an Order</Button>
           </SlyledButton>
         <Trust>
   <div className="trust-line">
