@@ -5,13 +5,13 @@ import { fetchMenu } from "../store/menuSlice";
 import { Product } from "../types/product";
 import styled from "styled-components";
 import Button from './Button';
-import { removeFromCart } from "../store/cartSlice";
-
+import { removeFromCart, updateCartQuantity } from "../store/cartSlice";
+import { useNavigate } from 'react-router-dom';
 
 const RemoveButton = styled.button`
   background: transparent;
   border: none;
-  color: var(--cart-bg);
+  color: grey;
   font-size: 20px;
   cursor: pointer;
 
@@ -42,6 +42,26 @@ const Title = styled.h2`
   font-size: 50px;
   color: #35B8BE;
   text-align: center;
+`;
+
+
+
+const EmptyCartTitle = styled.h2`
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  color: #35B8BE;     
+  text-align: center;
+  margin-top: 80px;
+`;
+
+const EmptyCartSubtitle = styled.span`
+  display: block;       
+  font-weight: 400;
+  font-size: 18px;
+  color: #888888;       
+  margin-top: 12px;
+  line-height: 1.4;
 `;
 
 const OrderList = styled.div`
@@ -148,15 +168,20 @@ const TotalPrice = styled.h3`
 `;
 
 import BaseButton from './Button';
+import { Navigate } from "react-router-dom";
 
 const SubmitButton = styled(BaseButton)`
   margin-left: 350px;
 `;
 
+const GoToMenuButton = styled(BaseButton)`
+ margin-top: 20px;
+`;
 
 
 const OrderPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchMenu());
@@ -185,6 +210,17 @@ const totalPrice = Object.entries(cartItems).reduce((sum, [id, quantity]) => {
       <Page>
         <Title>Finish your order</Title>
 
+
+{Object.keys(cartItems).length === 0 ? (
+  <EmptyCartTitle>Your cart is empty :(
+    <EmptyCartSubtitle>Add items to the shopping cart to place an order</EmptyCartSubtitle>
+    <GoToMenuButton type="button" onClick = {() => navigate('/menu')}>Place an Order</GoToMenuButton>
+    </EmptyCartTitle>
+      
+ 
+) : (
+  <>
+
         <OrderList>
           {Object.entries(cartItems).map(([id, quantity]) => {
             const meal = meals.find((item: Product) => item.id === id);
@@ -199,7 +235,12 @@ const totalPrice = Object.entries(cartItems).reduce((sum, [id, quantity]) => {
                 </Info>
                 <Controls>
                  <Price>${(meal.price * quantity).toFixed(2)}</Price>
-                  <Quantity type="text" value={quantity}/>
+                  <Quantity type="number" value={quantity} min={1} onChange={(e) => {
+    const newQuantity = parseInt(e.target.value, 10);
+    if (!isNaN(newQuantity)) {
+      dispatch(updateCartQuantity({ productId: id, quantity: newQuantity }));
+    }
+  }}/>
                   <RemoveButton onClick={() => dispatch(removeFromCart(id))}>X</RemoveButton>
                 </Controls>
               </OrderItem>
@@ -207,7 +248,7 @@ const totalPrice = Object.entries(cartItems).reduce((sum, [id, quantity]) => {
           })}
         
         </OrderList>
-
+ 
  <TotalPrice>Total: ${totalPrice.toFixed(2)}</TotalPrice> 
 
         <form onSubmit={handleSubmit}>
@@ -223,6 +264,8 @@ const totalPrice = Object.entries(cartItems).reduce((sum, [id, quantity]) => {
             <SubmitButton type="submit">Order</SubmitButton>
           </Form>
         </form>
+       </>
+         )}
       </Page>
     </Container>
   );

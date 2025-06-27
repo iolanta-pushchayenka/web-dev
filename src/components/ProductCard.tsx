@@ -5,7 +5,7 @@ import { Product } from '../types/product';
 import { Cart } from '../types/cart';
 import { RootState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../store/cartSlice';
+import { addToCart, removeFromCart } from '../store/cartSlice';
 
 
 type ProductCardProps = {
@@ -23,6 +23,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
     dispatch(addToCart(item.id));
   };
 
+
+
+  const handleIncrease = () => {
+    dispatch(addToCart(item.id));
+  };
+
+  const handleDecrease = () => {
+    if (itemCount > 0) {
+      dispatch(removeFromCart(item.id));
+    }
+  };
+
+
   return (
     <div className="card">
       <img className="img_burger" src={item.img} alt={item.meal} />
@@ -33,9 +46,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
         </div>
         <p className="description">{item.instructions.slice(0, 80)}...</p>
         <div className="card_qty">
+          <button className="qty_btn" onClick={handleDecrease}>–</button>
           <button className="cart_count">
+           
             <span className="quantity">{cart[item.id] || 0}</span>
+            
           </button>
+           <button className="qty_btn" onClick={handleIncrease}>+</button>
           <Button onClick = {handleAddToCartClick}>
   Add to cart 
 </Button>

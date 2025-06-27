@@ -280,3 +280,16 @@ margin-bottom: 100px;
         margin-top: 74px;
         margin-bottom: 100px;
 }
+
+
+.qty_btn {
+  width: 32px;
+  height: 32px;
+  font-size: 20px;
+  border: none;
+  background-color: #35b8be;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 7px;
+}
