@@ -9,6 +9,9 @@ const initialState: CartState = {
 
 };
 
+
+
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -18,19 +21,10 @@ const cartSlice = createSlice({
       state.cart[id] = (state.cart[id] || 0) + 1;
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
-      const id = action.payload;
-      if (state.cart[id]) {
-        state.cart[id] -= 1;
-        if (state.cart[id] <= 0) {
-          delete state.cart[id];
-        }
-      }
-    },
-    resetCart: (state) => {
-      state.cart = {};
-    },
+  delete state.cart[action.payload];
+},
   },
 });
 
-export const { addToCart} = cartSlice.actions;
+export const { addToCart, removeFromCart} = cartSlice.actions;
 export default cartSlice.reducer;
