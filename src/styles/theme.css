@@ -1,0 +1,19 @@
+/* theme.css */
+
+:root {
+  --bg-color: #f5fbfc;
+  --text-color: #08090a;
+  --cart-bg: #ffffff;
+  --cart-count-bg: rgb(242, 245, 242);
+--header-bg: #ffffff;
+  --footer-bg: #f4fdff;
+}
+
+.dark-theme {
+  --bg-color: #131a22;
+  --text-color: #ffffff;
+  --cart-bg: #2f3338;
+  --header-bg: #1b2531;
+  --footer-bg: #131a22;
+  --cart-count-bg: #2f3338;
+}

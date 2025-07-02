@@ -10,6 +10,8 @@ import { RootState, AppDispatch } from './store/store';
 import { setIsAuthenticated,  setIsRegistering } from './store/authSlice';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import OrderPage from './pages/OrderPage';
+import { ThemeProvider } from './context/ThemeContext'
+
 
 
 
@@ -29,7 +31,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <>
+   
     <BrowserRouter>
   <Routes>
      <Route path="/" element={<HomePage />} />
@@ -47,7 +49,7 @@ const App: React.FC = () => {
        <Route path="*" element={<NotFound />} />
   </Routes>
 </BrowserRouter>
-    </>
+  
   );
 }
 

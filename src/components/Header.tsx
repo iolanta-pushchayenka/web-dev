@@ -1,11 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import "../styles/Header.css";
-import logo from '../assets/IMAGE.jpg';
+import logo from '../assets/Logo (1).png';
 import { RootState } from '../store/store';
 import { useSelector } from 'react-redux';
-import { fetchMenu, setSelectedCategory, seeMoreItems } from '../store/menuSlice';
+import { fetchMenu } from '../store/menuSlice';
 import type { AppDispatch } from '../store/store'; 
 import { NavLink, useNavigate } from 'react-router-dom'; 
+import {ThemeContext} from "../context/ThemeContext";
+import ThemeToggle from './ThemeToggle';
 
 type HeaderProps = {
    addToCartCount?: number;
@@ -14,6 +16,8 @@ type HeaderProps = {
  
 const Header: React.FC<HeaderProps> = ({addToCartCount}) => {
    
+    const { theme, toggleTheme } = useContext(ThemeContext);
+
 const cart = useSelector((state: RootState) => state.cart.cart);
 
 return (
@@ -27,13 +31,13 @@ return (
             <a href="#" className="nav_link">Company</a>
             <a href="/login" className="nav_link">Login</a>
             </nav>
-           
             {typeof addToCartCount === "number"  && (
                <NavLink to="/order" className="cart" >
           🛒
           <span className="cart-count">{addToCartCount}</span>
         </NavLink>
         )}
+         <ThemeToggle />
         </div>
         </div>
         </header>

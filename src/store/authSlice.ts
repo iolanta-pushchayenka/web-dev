@@ -10,8 +10,10 @@ interface AuthState {
 const initialState: AuthState = {
     email: '',
     password: '',
-    isAuthenticated: false,
-    isRegistering: false,
+    isAuthenticated: localStorage.getItem("isAuthenticated") === "true",
+    isRegistering: false
+   // isAuthenticated: false,
+
 };
 
 const authSlice = createSlice ({
@@ -29,6 +31,7 @@ const authSlice = createSlice ({
 
         setIsAuthenticated(state, action: PayloadAction<boolean>) {
             state.isAuthenticated = action.payload;
+             localStorage.setItem("isAuthenticated", String(action.payload));
         },
 
         setIsRegistering(state, action: PayloadAction<boolean>) {

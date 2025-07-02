@@ -36,10 +36,11 @@ const ButtonGroup = styled.div`
 
 const Main = styled.div`
   overflow: hidden;
-  background-color: #f4fdff;
+  background-color: var(--bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
+
 `;
 
 const FormWrapper = styled.div`
@@ -67,7 +68,7 @@ const FieldGroup = styled.div`
 
 const Label = styled.label`
   width: 100px;
-  color: #08090A;
+  color: var(--text-color);
   margin-right: 10px;
   font-family: Inter, sans-serif;
   font-weight: 400px;
@@ -82,6 +83,8 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 10px;
   font-size: 16px;
+   background-color: var(--cart-bg);
+      color: var(--text-color);
 `;
 
 const Title = styled.h2`

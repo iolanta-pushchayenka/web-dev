@@ -20,7 +20,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   line-height: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
-
+color: var(--text-color);
   &:hover {
     background-color: #35B8BE;
     color: white;

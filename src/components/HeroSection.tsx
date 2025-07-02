@@ -61,8 +61,9 @@ line-height: 20px;
   }
 
    .trust-name {
-    color: #000000; 
+    color: var(--text-color);
     font-size: 25px;
+
   }
 
   .review-note {
@@ -70,7 +71,7 @@ line-height: 20px;
 font-weight: 400;
 font-size: 18px;
 line-height: 20px;
-color: #08090A;
+color: var(--text-color);
   }
 
 .trust-line {
