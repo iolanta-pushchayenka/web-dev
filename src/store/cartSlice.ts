@@ -36,8 +36,16 @@ login: (state, action) => {
       state.isAuthenticated = false;
       localStorage.removeItem("token");
     },
+    updateCartQuantity: (state, action) => {
+  const { productId, quantity } = action.payload;
+  if (quantity <= 0) {
+    delete state.cart[productId];
+  } else {
+    state.cart[productId] = quantity;
+  }
+}
   },
 });
 
-export const { addToCart, removeFromCart, login, logout} = cartSlice.actions;
+export const { addToCart, removeFromCart, login, logout, updateCartQuantity} = cartSlice.actions;
 export default cartSlice.reducer;
